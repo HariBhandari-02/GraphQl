@@ -23,18 +23,40 @@ const typeDefs = `
   id: ID!
   title: String!
   completed: Boolean
+  user: User
+  }
+
+  type User {
+  id: ID!
+  name: String!
+  username: String!
+  phone: String!
+  website: String!
   }
 
   type Query {  
   getAllTodos: [Todo]
+  getAllUsers: [User]
+  getUser(id: ID!): User
   }
 `;
 
 //  Resolvers
 const resolvers = {
+  Todo: {
+    user: async (todo) =>
+      await axios.get(`https://jsonplaceholder.typicode.com/users/${todo.id}`)
+        .data,
+  },
   Query: {
     getAllTodos: async () =>
       (await axios.get("https://jsonplaceholder.typicode.com/todos")).data,
+
+    getAllUsers: async () =>
+      (await axios.get("https://jsonplaceholder.typicode.com/users")).data,
+    getUser: async (parent, { id }) =>
+      (await axios.get(`https://jsonplaceholder.typicode.com/users/${id}`))
+        .data,
   },
 };
 
