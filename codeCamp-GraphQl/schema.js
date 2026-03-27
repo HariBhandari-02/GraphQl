@@ -31,7 +31,8 @@ export const typeDefs = `#graphql
 # Query --> This is reqired 
 # it is to define th entry points 
   type Query {
-    reviews: [Reviews]
+    books: [Book]
+    reviews: [Review]
     games: [Game]
     authors: [Author]
 

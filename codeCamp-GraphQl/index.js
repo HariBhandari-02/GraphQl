@@ -3,7 +3,48 @@ import { startStandaloneServer } from "@apollo/server/standalone";
 import axios from "axios";
 
 // Types
-import { typeDefs } from "codeCamp-GraphQl\schema.js";
+import { typeDefs } from "codeCamp-GraphQl/schema.js";
+
+// db import
+import db from "codeCamp-GraphQl/_db.js";
+
+/* Instances of apollo server
+ApolloServer constructor requires two paramaters :  
+1. Our Schema defination -> typeDefs
+2. Our set of resolvers -> resolvers
+*/
+
+// Defining resolver
+const resolvers = {
+  Query: {
+    books() {
+      return db.books;
+    },
+    reviews() {
+      return db.reviews;
+    },
+    games() {
+      return db.games;
+    },
+
+    // posts: async () =>
+    //   (await axios.get(`https://jsonplaceholder.typicode.com/posts`)).data,
+  },
+};
+
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+});
+
+// Passing an ApolloServer instance to the `startStandaloneServer` function:
+//  1. creates an Express app
+//  2. installs your ApolloServer instance as middleware
+//  3. prepares your app to handle incoming requests
+const { url } = await startStandaloneServer(server, {
+  listen: { port: 4000 },
+});
+console.log(` Server starts at : ${url}`);
 
 // A schema is a collection of type definitions (hence "typeDefs")
 // that together define the "shape" of queries that are executed against
@@ -26,40 +67,13 @@ import { typeDefs } from "codeCamp-GraphQl\schema.js";
 //     posts: [Post]
 //   }
 // `;
-const books = [
-  {
-    title: "The Awakening",
-    author: "Kate Chopin",
-  },
-  {
-    title: "City of Glass",
-    author: "Paul Auster",
-  },
-];
-
-// Defining resolver
-// const resolvers = {
-//   Query: {
-//     posts: async () =>
-//       (await axios.get(`https://jsonplaceholder.typicode.com/posts`)).data,
+// const books = [
+//   {
+//     title: "The Awakening",
+//     author: "Kate Chopin",
 //   },
-// };
-
-/* Instances of apollo server
-ApolloServer constructor requires two paramaters :  
-1. Our Schema defination -> typeDefs
-2. Our set of resolvers -> resolvers
-*/
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-});
-
-// Passing an ApolloServer instance to the `startStandaloneServer` function:
-//  1. creates an Express app
-//  2. installs your ApolloServer instance as middleware
-//  3. prepares your app to handle incoming requests
-const { url } = await startStandaloneServer(server, {
-  listen: { port: 4000 },
-});
-console.log(` Server starts at : ${url}`);
+//   {
+//     title: "City of Glass",
+//     author: "Paul Auster",
+//   },
+// ];
