@@ -3,10 +3,10 @@ import { startStandaloneServer } from "@apollo/server/standalone";
 import axios from "axios";
 
 // Types
-import { typeDefs } from "codeCamp-GraphQl/schema.js";
+import { typeDefs } from "./schema.js";
 
 // db import
-import db from "codeCamp-GraphQl/_db.js";
+import db from "./_db.js";
 
 /* Instances of apollo server
 ApolloServer constructor requires two paramaters :  
@@ -25,6 +25,10 @@ const resolvers = {
     },
     games() {
       return db.games;
+    },
+
+    authors() {
+      return db.authors;
     },
 
     // posts: async () =>

@@ -20,3 +20,20 @@ cd codeCamp-Graphql
 ```
 
 - create index.js file
+
+# Installing nodemon
+
+- So to run file live using nodemon
+- We can also use nodemod index.js to run live server OR we can define inside scripts.
+
+```bash
+yarn global add nodemon
+
+yarn add --dev nodemon
+
+
+"scripts": {
+    "start": "nodemon index.js",
+   },
+
+```
