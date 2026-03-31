@@ -20,15 +20,27 @@ const resolvers = {
     books() {
       return db.books;
     },
+    book(_, args) {
+      return db.books.find((book) => book.id === args.id);
+    },
     reviews() {
       return db.reviews;
+    },
+    review(_, args) {
+      return db.reviews.find((review) => review.id === args.id);
     },
     games() {
       return db.games;
     },
+    game(_, args) {
+      return db.games.find((game) => game.id === args.id);
+    },
 
     authors() {
       return db.authors;
+    },
+    author(_, args) {
+      return db.authors.find((author) => author.id === args.id);
     },
 
     // posts: async () =>
