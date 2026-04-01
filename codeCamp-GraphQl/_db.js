@@ -113,7 +113,7 @@ let reviews = [
     id: "r3",
     rating: 3,
     content: "Average overall.",
-    author_id: "a3",
+    author_id: "a2",
     game_id: "g3",
   },
   {
@@ -121,7 +121,7 @@ let reviews = [
     rating: 5,
     content: "Loved every moment.",
     author_id: "a4",
-    game_id: "g4",
+    game_id: "g2",
   },
   {
     id: "r5",
