@@ -5,65 +5,14 @@ import axios from "axios";
 // Types
 import { typeDefs } from "./schema.js";
 
-// db import
-import db from "./_db.js";
+// resolvers
+import { resolvers } from "./resolvers.js";
 
 /* Instances of apollo server
 ApolloServer constructor requires two paramaters :  
 1. Our Schema defination -> typeDefs
 2. Our set of resolvers -> resolvers
 */
-
-// Defining resolver
-const resolvers = {
-  Query: {
-    books() {
-      return db.books;
-    },
-    book(_, args) {
-      return db.books.find((book) => book.id === args.id);
-    },
-    reviews() {
-      return db.reviews;
-    },
-    review(_, args) {
-      return db.reviews.find((review) => review.id === args.id);
-    },
-    games() {
-      return db.games;
-    },
-    game(_, args) {
-      return db.games.find((game) => game.id === args.id);
-    },
-    authors() {
-      return db.authors;
-    },
-    author(_, args) {
-      return db.authors.find((author) => author.id === args.id);
-    },
-
-    // posts: async () =>
-    //   (await axios.get(`https://jsonplaceholder.typicode.com/posts`)).data,
-  },
-  Game: {
-    reviews(parent) {
-      return db.reviews.filter((r) => r.game_id === parent.id);
-    },
-  },
-  Author: {
-    reviews(parent) {
-      return db.reviews.filter((r) => r.author_id === parent.id);
-    },
-  },
-  Review: {
-    author(parent) {
-      return db.authors.find((a) => a.id === parent.author_id);
-    },
-    game(parent) {
-      return db.games.find((a) => a.id === parent.game_id);
-    },
-  },
-};
 
 const server = new ApolloServer({
   typeDefs,
