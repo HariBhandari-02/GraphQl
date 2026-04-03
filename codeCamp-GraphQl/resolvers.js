@@ -51,11 +51,12 @@ export const resolvers = {
   },
 
   Mutation: {
+    // delete mutation
     deleteGame(_, args) {
       db.games = db.games.filter((g) => g.id !== args.id);
       return db.games;
     },
-
+    // add mutation
     addGame(_, args) {
       let game = {
         ...args.game,
@@ -63,6 +64,17 @@ export const resolvers = {
       };
       db.games.push(game);
       return game;
+    },
+
+    // update mutation
+    updateGame(_, args) {
+      db.games = db.games.map((g) => {
+        if (g.id === args.id) {
+          return { ...g, ...args.edits };
+        }
+        return g;
+      });
+      return db.games.find((g) => g.id === args.id);
     },
   },
 };
