@@ -49,4 +49,11 @@ export const resolvers = {
       return db.games.find((a) => a.id === parent.game_id);
     },
   },
+
+  Mutation: {
+    deleteGame(_, args) {
+      db.games = db.games.filter((g) => g.id !== args.id);
+      return db.games;
+    },
+  },
 };
